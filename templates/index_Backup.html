@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
+    <body>
+        <div class="container">
+            <h1>Simple image search engine</h1>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="query_img"><br>
+                <input type="text" name="query_text" placeholder="Enter text here"><br> <!-- Text input added here -->
+                <select name="search_modality">
+                    <option value="II">Image-Image</option>
+                    <option value="TI">Text-Image</option>
+                    <option value="MI">Multimodal-Image</option>
+                    <option value="IT">Image-Text</option>
+                    <option value="TT">Text-Text</option>
+                    <option value="MT">Multimodal-Text</option>
+                    <option value="IM">Image-Multimodal</option>
+                    <option value="TM">Text-Multimodal</option>
+                    <option value="MM">Multimodal-Multimodal</option>
+                </select><br>
+                <input type="submit">
+            </form>
+            <h2>Query:</h2>
+            {% if query_path %}
+            <img src="{{ query_path }}" width="300px">
+            {% endif %}
+            <h2>Results:</h2>
+            {% for score in scores %}
+            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
+                <img src="{{ score[1] }}" height="200px">
+                <figcaption>{{ score[0] }}</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+
+

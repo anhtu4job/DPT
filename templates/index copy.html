@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Image Search Application</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .search-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .search-box {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  .search-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+  .image-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+  }
+  .image-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+  }
+  .image-card p {
+    margin: 5px 0;
+  }
+  .image-upload-label img {
+  width: 30px; /* or the size you prefer */
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box {
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  flex-grow: 1;
+  border-radius: 5px 0 0 5px; /* rounded corners on the left side */
+  margin: 0; /* remove default margins */
+}
+
+.image-upload-label {
+  display: inline-block;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: none; /* remove left border to connect to the search box */
+  cursor: pointer;
+}
+
+.image-upload-label .upload-icon {
+  width: 24px; /* set the size of the icon */
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0; /* rounded corners on the right side */
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+    <div class="search-container">
+        <h1>FOOD IMAGE SEARCH APPLICATION</h1>
+        <!-- <div class="input-group">
+          <input type="text" class="search-box" placeholder="Search...">
+          <label for="image-upload" class="image-upload-label">
+            <img src="../static/web/photo.png" alt="Upload" class="upload-icon">
+            <input id="image-upload" type="file" style="display:none;" onchange="handleFileSelect(event)">
+          </label>
+          <button class="search-button">Search</button>
+        </div> -->
+        <form class="input-group" method="POST" enctype="multipart/form-data">
+            
+            <!-- <input type="file" id="query_img" name="query_img">
+            <input type="text" id="query_text" name="query_text" placeholder="Enter text here">
+            <input type="number" name="retrieval_number" placeholder="Enter retrieval number" value="10"><br>
+             -->
+         <input type="text" id="query_text" name="query_text" class="search-box" placeholder="Search...">
+          <label for="image-upload" class="image-upload-label">
+            <img src="../static/web/photo.png" alt="Upload" class="upload-icon">
+            <input id="query_img" name="query_img" type="file" style="display:none;" onchange="handleFileSelect(event)">
+          </label>
+            <select name="search_modality">
+                <option value="II">Image-Image</option>
+                <option value="TI">Text-Image</option>
+            </select><br>
+            <input class="search-button" type="submit">
+        </form>
+      </div>
+      <h2>Query:</h2>
+      {% if query_path %}
+      <img src="{{ query_path }}" width="300px">
+      {% endif %}
+      <h2>Results:</h2>
+      {% for score in scores %}
+      <figure class="image-card" style="float: left; margin-right: 20px; margin-bottom: 20px;">
+          <img src="{{ score[1] }}" height="200px">
+          <figcaption>{{ score[0] }}</figcaption>
+      </figure>
+      {% endfor %}
+      
+
+<div class="gallery">
+  <!-- Image Card 1 -->
+  <!-- <div class="image-card">
+    <img src="path-to-margherita-pizza-image.jpg" alt="Homemade Margherita Pizza">
+    <p>homemade margherita pizza is so easy and delicious</p>
+  </div> -->
+  <!-- Repeat for each image card -->
+</div>
+<script>
+    function handleFileSelect(event) {
+      var files = event.target.files; // FileList object
+      // files is a FileList of File objects. You might want to do something with the file here.
+    }
+    </script>
+</body>
+</html>
